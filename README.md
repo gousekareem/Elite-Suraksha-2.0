@@ -1,39 +1,96 @@
+<div align="center">
+
 # EliteSuraksha 2.0
 
-**A persistent-memory AI investigation agent that helps platform-based gig workers understand changes in their earnings, compare new situations with their own history, and build evidence-backed investigations over time.**
+### **Persistent-Memory AI Investigation Agent for Gig Workers**
 
-> Your work history should not disappear every time you start a new conversation.
-> EliteSuraksha 2.0 remembers the worker's history so the agent can investigate today's problem using yesterday's experience.
+**Turn “Why did my earnings drop?” into a worker-specific, evidence-backed investigation.**
 
-Persistent memory is provided by **[Hindsight](https://github.com/vectorize-io/hindsight)** (Vectorize). PostgreSQL holds the facts. Hindsight holds what the agent has learned and experienced.
+<br/>
+
+[![Node.js](https://img.shields.io/badge/Node.js-%E2%89%A520.10-339933?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org/)
+[![React](https://img.shields.io/badge/React-18-61DAFB?style=for-the-badge&logo=react&logoColor=111827)](https://react.dev/)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-14%2B-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)](https://www.postgresql.org/)
+[![Hindsight](https://img.shields.io/badge/Hindsight-0.10.1-7C3AED?style=for-the-badge)](https://github.com/vectorize-io/hindsight)
+[![Prisma](https://img.shields.io/badge/Prisma-ORM-2D3748?style=for-the-badge&logo=prisma&logoColor=white)](https://www.prisma.io/)
+[![Expo](https://img.shields.io/badge/Expo-Mobile-000020?style=for-the-badge&logo=expo&logoColor=white)](https://expo.dev/)
+
+<br/>
+
+> **Your work history should not disappear every time you start a new conversation.**
+>
+> EliteSuraksha 2.0 remembers a worker's history so today's problem can be investigated using yesterday's experience.
+
+<br/>
+
+**Structured facts** → **Analytics** → **Persistent memory** → **Investigation** → **Evidence** → **Outcome** → **Learning**
+
+</div>
+
+---
+
+## What Makes EliteSuraksha Different?
+
+EliteSuraksha is built around one idea:
+
+> **An AI investigator should not only know what happened now — it should remember what happened before.**
+
+Persistent memory is provided by **[Hindsight](https://github.com/vectorize-io/hindsight)**. PostgreSQL stores the structured facts; Hindsight stores what the agent has learned and experienced.
+
+<div align="center">
+
+| 🧠 **Structured Intelligence** | 🔎 **Investigation** | 🧬 **Persistent Memory** | 🛡️ **Worker Safety** |
+|:---:|:---:|:---:|:---:|
+| Deterministic analytics | Evidence-first cases | Per-worker memory banks | Strict worker isolation |
+| Personal baselines | FACT / INFERENCE / UNKNOWN | Recall previous cases | Validated tools |
+| Component breakdowns | Timeline + findings | Retained outcomes | Audit trail |
+
+</div>
 
 ![Agent recalls a previous investigation outcome](docs/screenshots/07-wow-recall.png)
+
+> **The WOW moment:** a new anomaly can recall a similar historical case, including what was discovered and how the previous investigation was resolved.
 
 ---
 
 ## Contents
 
-- [What it does](#what-it-does)
-- [Why this problem matters](#why-this-problem-matters)
-- [Product workflow](#product-workflow)
-- [Architecture](#architecture)
-- [Why Hindsight](#why-hindsight)
-- [Memory lifecycle](#memory-lifecycle)
-- [PostgreSQL vs Hindsight](#postgresql-vs-hindsight)
-- [Agent tools](#agent-tools)
-- [Earnings intelligence](#earnings-intelligence)
-- [Anomaly detection](#anomaly-detection)
-- [Investigation engine](#investigation-engine)
-- [Evidence timeline](#evidence-timeline)
-- [Memory journey](#memory-journey)
-- [Before/after memory](#beforeafter-memory)
-- [Demo](#demo) and the [3-minute demo](#3-minute-demo)
-- [Installation](#installation), [Environment variables](#environment-variables), [Running locally](#running-locally), [Database setup](#database-setup), [Hindsight setup](#hindsight-setup)
-- [Tests](#tests)
-- [Project structure](#project-structure)
-- [Security](#security)
-- [Limitations](#limitations)
-- [Future roadmap](#future-roadmap)
+<details>
+<summary><strong>Explore the README</strong></summary>
+
+- [✨ What Makes EliteSuraksha Different?](#-what-makes-elitesuraksha-different)
+- [🎯 What It Does](#what-it-does)
+- [💡 Why This Problem Matters](#why-this-problem-matters)
+- [🔄 Product Workflow](#product-workflow)
+- [🏗️ Architecture](#architecture)
+- [🧠 Why Hindsight](#why-hindsight)
+- [♻️ Memory Lifecycle](#memory-lifecycle)
+- [⚖️ PostgreSQL vs Hindsight](#postgresql-vs-hindsight)
+- [🧰 Agent Tools](#agent-tools)
+- [📊 Earnings Intelligence](#earnings-intelligence)
+- [🚨 Anomaly Detection](#anomaly-detection)
+- [🔬 Investigation Engine](#investigation-engine)
+- [🧾 Evidence Timeline](#evidence-timeline)
+- [🧭 Memory Journey](#memory-journey)
+- [🆚 Before / After Memory](#beforeafter-memory)
+- [🎬 Demo](#demo)
+- [⚡ 3-Minute Demo](#3-minute-demo)
+- [🚀 Installation](#installation)
+- [🔐 Environment Variables](#environment-variables)
+- [🗄️ Database Setup](#database-setup)
+- [🧠 Hindsight Setup](#hindsight-setup)
+- [▶️ Running Locally](#running-locally)
+- [🧪 Tests](#tests)
+- [📁 Project Structure](#project-structure)
+- [🔒 Security](#security)
+- [⚠️ Limitations](#limitations)
+- [🗺️ Future Roadmap](#future-roadmap)
+
+</details>
+
+---
+
+## What It Does
 
 ---
 
@@ -56,7 +113,7 @@ The agent:
 - opens **investigations** that preserve the evidence, the recalled memory and the findings, and generates an **evidence-first report**
 - **retains the outcome** when a case is resolved, so the next similar case starts from what was learned
 
-## Why this problem matters
+## Why This Problem Matters
 
 Platform-based gig workers are paid through combinations of per-order pay, incentives with eligibility conditions, tips and deductions. When earnings fall, the worker usually cannot tell:
 
@@ -69,15 +126,24 @@ Generic chat assistants forget everything between conversations. EliteSuraksha k
 
 EliteSuraksha supports accountability. It **never** concludes that a platform broke a law or a policy (see [Legal and policy safety](docs/SECURITY.md#legal--policy-safety)).
 
-## Product workflow
+## Product Workflow
 
-```text
-Worker data → Current event → Structured analytics → Hindsight recall → Historical worker context
-→ Comparable past experiences → AI investigation → Evidence-based explanation → Investigation / grievance
-→ Outcome → Hindsight retain → Future investigation gets better
+```mermaid
+flowchart LR
+    A[👤 Worker Data] --> B[⚡ Current Event]
+    B --> C[📊 Structured Analytics]
+    C --> D[🧠 Hindsight Recall]
+    D --> E[🕰️ Historical Context]
+    E --> F[🔎 Comparable Experiences]
+    F --> G[🤖 AI Investigation]
+    G --> H[🧾 Evidence-Based Explanation]
+    H --> I[📋 Investigation / Grievance]
+    I --> J[✅ Outcome]
+    J --> K[🧠 Hindsight Retain]
+    K --> D
 ```
 
-## Architecture
+##  Architecture
 
 ```text
                  ┌──────────────────────┐
@@ -117,7 +183,7 @@ Worker data → Current event → Structured analytics → Hindsight recall → 
 
 Details: [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md). The web app also renders the diagram on **How it works** (`/architecture`).
 
-## Why Hindsight
+##  Why Hindsight
 
 The agent needs **experience**, not just rows:
 
@@ -135,7 +201,7 @@ Hindsight provides this through the following:
 
 All Hindsight access goes through one module, [`HindsightService`](apps/api/src/services/memory/hindsight.service.js). Details: [docs/HINDSIGHT.md](docs/HINDSIGHT.md).
 
-## Memory lifecycle
+## ♻️ Memory Lifecycle
 
 ```text
 1 EVENT → 2 RETAIN → 3 TIME PASSES → 4 NEW EVENT → 5 RECALL → 6 HISTORICAL CONTEXT
@@ -156,7 +222,7 @@ In the running application:
 
 See [docs/MEMORY_LIFECYCLE.md](docs/MEMORY_LIFECYCLE.md).
 
-## PostgreSQL vs Hindsight
+## ⚖️ PostgreSQL vs Hindsight
 
 | PostgreSQL (source of truth for facts) | Hindsight (agent memory) |
 |---|---|
@@ -171,7 +237,7 @@ The database is **not** copied into Hindsight. Memories are short, precise state
 
 > "On Fri 19 Jun 2026 (Friday 18:00–23:00 · Zone A shift) net earnings were ₹759, 24% below the worker's personal baseline of ₹1,004 (7 comparable sessions)…"
 
-## Agent tools
+##  Agent Tools
 
 `get_worker_profile`, `get_recent_earnings`, `get_earnings_baseline`, `get_comparable_sessions`, `get_incentive_history`, `get_deduction_history`, `get_platform_events`, `get_previous_investigations`, `recall_hindsight_memory`, `retain_hindsight_memory` (limited to preferences and feedback), `create_investigation`, `get_investigation_evidence`, `generate_evidence_summary`, `generate_grievance_report`, `record_investigation_outcome` (requires worker confirmation; never called autonomously).
 
@@ -184,7 +250,7 @@ Every tool:
 
 The LLM, when configured, gets **read-only** tools only. See [docs/AGENT_TOOLS.md](docs/AGENT_TOOLS.md).
 
-## Earnings intelligence
+##  Earnings Intelligence
 
 All figures are computed deterministically in [`services/analytics`](apps/api/src/services/analytics):
 
@@ -196,7 +262,9 @@ All figures are computed deterministically in [`services/analytics`](apps/api/sr
 - deviation
 - a **component breakdown** (volume effect, pay-per-order effect, incentive, tips, deductions) that sums exactly to the change
 
-## Anomaly detection
+> **Design principle:** the LLM never performs the core earnings arithmetic. Analytics are computed deterministically in code, then explained by the agent.
+
+##  Anomaly Detection
 
 The explainable engine ([`anomaly.js`](apps/api/src/services/analytics/anomaly.js)) checks these signals:
 
@@ -212,7 +280,7 @@ The explainable engine ([`anomaly.js`](apps/api/src/services/analytics/anomaly.j
 
 It outputs one of four states: `NORMAL`, `WATCH`, `SIGNIFICANT_CHANGE` or `INVESTIGATION_RECOMMENDED`. A large drop that lower order volume explains is **not** escalated to an investigation. These are internal product states, not legal conclusions.
 
-## Investigation engine
+##  Investigation Engine
 
 An investigation preserves:
 
@@ -230,11 +298,11 @@ The worker can:
 
 See [docs/INVESTIGATION_ENGINE.md](docs/INVESTIGATION_ENGINE.md).
 
-## Evidence timeline
+##  Evidence Timeline
 
 A chronological, expandable timeline sits in agent answers (when the worker's recalled preference asks for one) and in every investigation workspace. It shows comparable shifts, platform events, the session under review, recalled memories and worker evidence.
 
-## Memory journey
+##  Memory Journey
 
 `/memory` shows how understanding developed, by day number since the first shift:
 
@@ -250,7 +318,7 @@ A chronological, expandable timeline sits in agent answers (when the worker's re
 
 Every milestone is backed by a real record.
 
-## Before/after memory
+## 🆚 Before / After Memory
 
 `/compare` runs one question three ways:
 
@@ -260,13 +328,13 @@ Every milestone is backed by a real record.
 
 Only the third column calls Hindsight. It is the only one that recalls the previous outcome.
 
-## Demo
+##  Demo
 
 The **Judge Demo** (`/demo`) runs the whole story on a deterministic synthetic worker: **Rahul Kumar**, Hyderabad Zone A, *Generic Delivery Platform (synthetic)*, with 72 sessions from 27 Apr to 14 Aug 2026. Every button triggers the real workflows, including ingestion, the anomaly engine, Hindsight retains and recalls, investigations and outcomes. A second synthetic worker (Asha Reddy) has her own bank, for isolation checks. All data is labelled synthetic.
 
 `POST /api/v1/demo/reset` (the **Reset demo** button) restores the known state. It deletes only the synthetic workers' records and Hindsight banks.
 
-### 3-minute demo
+###  3-Minute Demo
 
 1. Open http://localhost:5173 and click **Enter Judge Demo as Rahul →**.
 2. **Reset demo**.
@@ -285,7 +353,26 @@ The **Fast-forward to step 9** button runs steps 2–9 in one go. See [docs/DEMO
 
 ---
 
-## Installation
+##  Core Capabilities at a Glance
+
+<div align="center">
+
+| Capability | What EliteSuraksha does |
+|:---|:---|
+| 💰 **Earnings Intelligence** | Personal baselines, comparable sessions and exact component breakdowns |
+| 🚨 **Anomaly Detection** | Detects meaningful changes using explainable signals |
+| 🧠 **Persistent Memory** | Recalls patterns, anomalies, findings and outcomes |
+| 🔎 **Investigations** | Preserves evidence, findings, unknowns and audit history |
+| 🧾 **Evidence Reports** | Generates versioned, evidence-first investigation reports |
+| 🔐 **Isolation & Security** | Worker-scoped data, validated tools and protected memory banks |
+| 📱 **Web + Mobile** | React dashboard plus Expo companion using the same API |
+| 🎭 **Deterministic Demo** | Reproducible synthetic Judge Demo for evaluation |
+
+</div>
+
+---
+
+## 🚀 Installation
 
 Requirements:
 
@@ -300,7 +387,7 @@ npm install
 cp .env.example .env        # then edit values
 ```
 
-## Environment variables
+##  Environment Variables
 
 All variables are documented in [`.env.example`](.env.example), grouped as APPLICATION, DATABASE, AUTH, HINDSIGHT, LLM, WEB and MOBILE. The minimum set:
 
@@ -314,7 +401,7 @@ HINDSIGHT_URL=http://localhost:8888
 
 The API loads the repo-root `.env`, with an optional `apps/api/.env` override. Never commit `.env`; it is git-ignored.
 
-## Database setup
+##  Database Setup
 
 ```bash
 # e.g. docker run -d --name es-pg -e POSTGRES_PASSWORD=postgres -p 5432:5432 postgres:16
@@ -326,7 +413,7 @@ npm run db:migrate           # prisma migrate deploy
 npm run db:migrate:offline   # applies the same SQL and records it in _prisma_migrations
 ```
 
-## Hindsight setup
+##  Hindsight Setup
 
 ```bash
 export OPENAI_API_KEY=sk-...      # or configure another provider, see Hindsight docs
@@ -342,7 +429,7 @@ The Hindsight UI at http://localhost:9999 shows the `elitesuraksha-worker-<id>` 
 
 If Hindsight is not running, the app still works on structured records. The status badge turns red and answers say: *"Historical agent memory is temporarily unavailable. The current analysis is based on structured records only."*
 
-## Running locally
+## ▶️ Running Locally
 
 ```bash
 npm run demo:seed     # optional: reset + Phase-1 history (or use the Judge Demo buttons)
@@ -355,7 +442,7 @@ Open http://localhost:5173 and choose **Enter Judge Demo as Rahul**, or **Open I
 - `npm run demo:scenario` prepares everything up to the second anomaly from the command line.
 - Mobile companion: `npm run dev:mobile` (Expo). Set `EXPO_PUBLIC_API_BASE_URL`.
 
-## Tests
+## 🧪 Tests
 
 ```bash
 createdb -h localhost -U postgres elite_suraksha_test
@@ -370,7 +457,7 @@ npm run build     # production web build
 
 Latest local run: **31/31 tests passed**, lint 70/70 files, web build OK, and the UI end-to-end walkthrough passed. See [Limitations](#limitations) for the environment used.
 
-## Project structure
+## 📁 Project Structure
 
 ```text
 apps/
@@ -393,7 +480,7 @@ docs/                        architecture, Hindsight, lifecycle, tools, investig
 e2e/                         optional Playwright walkthrough
 ```
 
-## Security
+## 🔒 Security
 
 - JWT auth with rate-limited OTP (5 attempts, `crypto.randomInt`), and role checks (`WORKER` or `ADMIN`).
 - **Worker isolation:** the worker is always derived from the token (`/me/*`), or from an admin-only route parameter (`/admin/workers/:id/*`). The Hindsight bank id is derived from that worker. Client-supplied worker ids are rejected.
@@ -406,7 +493,7 @@ e2e/                         optional Playwright walkthrough
 
 See [docs/SECURITY.md](docs/SECURITY.md).
 
-## Limitations
+## ⚠️ Limitations
 
 These are honest limits, not future marketing:
 
@@ -418,7 +505,7 @@ These are honest limits, not future marketing:
 - **Operations.** The rate limiter is in-memory (single instance only). Report export is Markdown plus browser print-to-PDF. Screenshots were rendered with fallback fonts because Google Fonts was blocked in the capture environment.
 - **Legal.** Reports summarise observed data. They do not establish legal liability and cite no laws.
 
-## Future roadmap
+## 🗺️ Future Roadmap
 
 - Real platform statement importers (CSV/PDF parsers per platform adapter)
 - Hindsight mental models per worker, for example a continuously refreshed "earnings profile"
@@ -430,3 +517,21 @@ These are honest limits, not future marketing:
 ---
 
 *This repository was transformed from the original EliteSuraksha parametric-insurance prototype. The audit of what was reused, repurposed or removed is in [docs/TRANSFORMATION.md](docs/TRANSFORMATION.md).*
+
+---
+
+<div align="center">
+
+### EliteSuraksha 2.0
+
+**Remember the past. Investigate the present. Learn for the future.**
+
+<br/>
+
+`Structured Facts` • `Deterministic Analytics` • `Persistent Memory` • `Evidence-First Investigation`
+
+<br/>
+
+<sub>Built for worker-centered accountability with synthetic demo data and explicit safety boundaries.</sub>
+
+</div>
