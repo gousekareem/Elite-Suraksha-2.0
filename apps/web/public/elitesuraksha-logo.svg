@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 520" role="img" aria-labelledby="title desc">
+  <title id="title">EliteSuraksha 2.0 logo</title>
+  <desc id="desc">Shield logo with infinity loop and memory network for EliteSuraksha 2.0</desc>
+  <defs>
+    <linearGradient id="shieldGrad" x1="0%" x2="100%" y1="0%" y2="100%">
+      <stop offset="0%" stop-color="#0b1f43"/>
+      <stop offset="35%" stop-color="#102f5f"/>
+      <stop offset="100%" stop-color="#0a2147"/>
+    </linearGradient>
+    <linearGradient id="loopGrad" x1="0%" x2="100%" y1="0%" y2="0%">
+      <stop offset="0%" stop-color="#0c9ec5"/>
+      <stop offset="40%" stop-color="#19b9d9"/>
+      <stop offset="100%" stop-color="#0b6ef7"/>
+    </linearGradient>
+    <linearGradient id="textGrad" x1="0%" x2="100%" y1="0%" y2="0%">
+      <stop offset="0%" stop-color="#0c1a46"/>
+      <stop offset="100%" stop-color="#113d7a"/>
+    </linearGradient>
+  </defs>
+
+  <g transform="translate(40,20)">
+    <path d="M420 15 L700 60 L700 260 C700 360 620 430 420 500 C220 430 140 360 140 260 L140 60 Z" fill="url(#shieldGrad)"/>
+    <path d="M188 104 L400 80 L458 96 L490 84 L530 96 L560 86 L634 94 L646 112 L676 134 L656 152 L668 182 L648 198 L662 222 L633 236 L620 258 L546 246 L502 260 L472 250 L430 274 L414 286 L394 274 L372 292 L330 288 L300 270 L256 248 L214 238 L198 224 L188 180 L178 156 L162 146 L170 126 Z" fill="rgba(255,255,255,0.08)"/>
+
+    <g transform="translate(0,0)">
+      <path d="M300 210 C330 152, 410 150, 456 200 C494 246, 560 246, 598 200 C650 140, 703 149, 735 196 C671 152, 645 142, 610 164 C566 192, 512 204, 472 180 C438 160, 402 152, 362 180 C325 206, 300 220, 282 238" fill="none" stroke="url(#loopGrad)" stroke-width="30" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M300 210 C282 238, 325 206, 362 180 C402 152, 438 160, 472 180 C512 204, 566 192, 610 164 C645 142, 671 152, 735 196 C703 149, 650 140, 598 200 C560 246, 494 246, 456 200 C410 150, 330 152, 300 210" fill="none" stroke="url(#loopGrad)" stroke-width="30" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M482 174 L620 178" stroke="url(#loopGrad)" stroke-width="14" stroke-linecap="round" opacity="0.9"/>
+      <path d="M516 212 L626 150" stroke="url(#loopGrad)" stroke-width="14" stroke-linecap="round" opacity="0.9"/>
+    </g>
+
+    <g fill="#00d8ff" stroke="#3ee0ff" stroke-width="3">
+      <circle cx="272" cy="214" r="8"/>
+      <circle cx="316" cy="176" r="8"/>
+      <circle cx="364" cy="180" r="8"/>
+      <circle cx="456" cy="200" r="8"/>
+      <circle cx="514" cy="280" r="8"/>
+      <circle cx="605" cy="163" r="8"/>
+      <circle cx="645" cy="212" r="8"/>
+      <circle cx="721" cy="196" r="8"/>
+      <circle cx="570" cy="258" r="8"/>
+      <circle cx="416" cy="232" r="8"/>
+    </g>
+    <g stroke="#3ee0ff" stroke-width="2.6" stroke-linecap="round" opacity="0.9">
+      <path d="M272 214 L316 176"/>
+      <path d="M316 176 L364 180"/>
+      <path d="M364 180 L456 200"/>
+      <path d="M456 200 L514 280"/>
+      <path d="M456 200 L605 163"/>
+      <path d="M605 163 L645 212"/>
+      <path d="M605 163 L721 196"/>
+      <path d="M514 280 L570 258"/>
+      <path d="M570 258 L645 212"/>
+      <path d="M416 232 L456 200"/>
+    </g>
+  </g>
+
+  <g transform="translate(0,0)">
+    <text x="150" y="430" fill="url(#textGrad)" font-family="Segoe UI, Arial, sans-serif" font-size="176" font-weight="700" letter-spacing="-6">Elite</text>
+    <text x="570" y="430" fill="url(#textGrad)" font-family="Segoe UI, Arial, sans-serif" font-size="176" font-weight="700" letter-spacing="-6">Suraksha</text>
+    <text x="1080" y="360" fill="#0d79b2" font-family="Segoe UI, Arial, sans-serif" font-size="82" font-weight="700">2.0</text>
+  </g>
+</svg>
