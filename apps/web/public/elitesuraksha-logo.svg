@@ -1,63 +1,109 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 520" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 540" role="img" aria-labelledby="title desc">
   <title id="title">EliteSuraksha 2.0 logo</title>
-  <desc id="desc">Shield logo with infinity loop and memory network for EliteSuraksha 2.0</desc>
+  <desc id="desc">Shield logo with infinity loop and network nodes for EliteSuraksha 2.0</desc>
   <defs>
-    <linearGradient id="shieldGrad" x1="0%" x2="100%" y1="0%" y2="100%">
-      <stop offset="0%" stop-color="#0b1f43"/>
-      <stop offset="35%" stop-color="#102f5f"/>
-      <stop offset="100%" stop-color="#0a2147"/>
+    <linearGradient id="shieldFront" x1="0%" x2="100%" y1="0%" y2="100%">
+      <stop offset="0%" stop-color="#0f2a5d"/>
+      <stop offset="25%" stop-color="#0f355e"/>
+      <stop offset="60%" stop-color="#0f2d5d"/>
+      <stop offset="100%" stop-color="#0d2349"/>
     </linearGradient>
-    <linearGradient id="loopGrad" x1="0%" x2="100%" y1="0%" y2="0%">
-      <stop offset="0%" stop-color="#0c9ec5"/>
-      <stop offset="40%" stop-color="#19b9d9"/>
-      <stop offset="100%" stop-color="#0b6ef7"/>
+    <linearGradient id="shieldInset" x1="0%" x2="100%" y1="0%" y2="100%">
+      <stop offset="0%" stop-color="#1e5d9c" stop-opacity="0.34"/>
+      <stop offset="100%" stop-color="#0f2249" stop-opacity="0.18"/>
+    </linearGradient>
+    <linearGradient id="loop" x1="0%" x2="100%" y1="0%" y2="0%">
+      <stop offset="0%" stop-color="#0eaed9"/>
+      <stop offset="35%" stop-color="#04c6df"/>
+      <stop offset="70%" stop-color="#1b88ff"/>
+      <stop offset="100%" stop-color="#0e7cf5"/>
+    </linearGradient>
+    <linearGradient id="loopDark" x1="0%" x2="100%" y1="0%" y2="0%">
+      <stop offset="0%" stop-color="#0d3a7a"/>
+      <stop offset="100%" stop-color="#0b2257"/>
     </linearGradient>
     <linearGradient id="textGrad" x1="0%" x2="100%" y1="0%" y2="0%">
-      <stop offset="0%" stop-color="#0c1a46"/>
-      <stop offset="100%" stop-color="#113d7a"/>
+      <stop offset="0%" stop-color="#0d224d"/>
+      <stop offset="100%" stop-color="#143f7a"/>
     </linearGradient>
+    <filter id="softShadow" x="-20%" y="-20%" width="140%" height="160%">
+      <feDropShadow dx="0" dy="8" stdDeviation="8" flood-color="#0c223e" flood-opacity="0.18"/>
+    </filter>
   </defs>
 
-  <g transform="translate(40,20)">
-    <path d="M420 15 L700 60 L700 260 C700 360 620 430 420 500 C220 430 140 360 140 260 L140 60 Z" fill="url(#shieldGrad)"/>
-    <path d="M188 104 L400 80 L458 96 L490 84 L530 96 L560 86 L634 94 L646 112 L676 134 L656 152 L668 182 L648 198 L662 222 L633 236 L620 258 L546 246 L502 260 L472 250 L430 274 L414 286 L394 274 L372 292 L330 288 L300 270 L256 248 L214 238 L198 224 L188 180 L178 156 L162 146 L170 126 Z" fill="rgba(255,255,255,0.08)"/>
+  <g transform="translate(40,10)" filter="url(#softShadow)">
+    <path d="M510 18 L740 58 L740 268 C740 372 664 460 510 526 C356 460 280 372 280 268 L280 58 Z" fill="url(#shieldFront)"/>
+    <path d="M510 54 L695 84 L695 252 C695 333 641 399 510 454 C379 399 325 333 325 252 L325 84 Z" fill="url(#shieldInset)"/>
 
-    <g transform="translate(0,0)">
-      <path d="M300 210 C330 152, 410 150, 456 200 C494 246, 560 246, 598 200 C650 140, 703 149, 735 196 C671 152, 645 142, 610 164 C566 192, 512 204, 472 180 C438 160, 402 152, 362 180 C325 206, 300 220, 282 238" fill="none" stroke="url(#loopGrad)" stroke-width="30" stroke-linecap="round" stroke-linejoin="round"/>
-      <path d="M300 210 C282 238, 325 206, 362 180 C402 152, 438 160, 472 180 C512 204, 566 192, 610 164 C645 142, 671 152, 735 196 C703 149, 650 140, 598 200 C560 246, 494 246, 456 200 C410 150, 330 152, 300 210" fill="none" stroke="url(#loopGrad)" stroke-width="30" stroke-linecap="round" stroke-linejoin="round"/>
-      <path d="M482 174 L620 178" stroke="url(#loopGrad)" stroke-width="14" stroke-linecap="round" opacity="0.9"/>
-      <path d="M516 212 L626 150" stroke="url(#loopGrad)" stroke-width="14" stroke-linecap="round" opacity="0.9"/>
+    <g>
+      <circle cx="415" cy="152" r="9" fill="#2de6ff"/>
+      <circle cx="495" cy="138" r="9" fill="#0ec6df"/>
+      <circle cx="560" cy="165" r="9" fill="#31d5ff"/>
+      <circle cx="620" cy="210" r="10" fill="#1bcde2"/>
+      <circle cx="668" cy="150" r="8" fill="#42d9ff"/>
+      <circle cx="520" cy="242" r="9" fill="#0cc7db"/>
+      <circle cx="610" cy="290" r="9" fill="#2fd3ff"/>
+      <circle cx="425" cy="260" r="9" fill="#21c2e9"/>
+      <circle cx="360" cy="192" r="8" fill="#4fe7ff"/>
+      <circle cx="455" cy="300" r="8" fill="#1ac2e9"/>
+      <circle cx="555" cy="320" r="9" fill="#28d7ff"/>
+      <circle cx="666" cy="270" r="8" fill="#48dfff"/>
     </g>
 
-    <g fill="#00d8ff" stroke="#3ee0ff" stroke-width="3">
-      <circle cx="272" cy="214" r="8"/>
-      <circle cx="316" cy="176" r="8"/>
-      <circle cx="364" cy="180" r="8"/>
-      <circle cx="456" cy="200" r="8"/>
-      <circle cx="514" cy="280" r="8"/>
-      <circle cx="605" cy="163" r="8"/>
-      <circle cx="645" cy="212" r="8"/>
-      <circle cx="721" cy="196" r="8"/>
-      <circle cx="570" cy="258" r="8"/>
-      <circle cx="416" cy="232" r="8"/>
+    <g stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <path d="M430 150 L495 138 L560 165 L620 210 L668 150" stroke="#38d8fc" stroke-width="3" opacity="0.9"/>
+      <path d="M495 138 L520 242 L610 290 L666 270" stroke="#38d8fc" stroke-width="3" opacity="0.9"/>
+      <path d="M520 242 L555 320" stroke="#38d8fc" stroke-width="3" opacity="0.9"/>
+      <path d="M425 260 L455 300 L555 320" stroke="#38d8fc" stroke-width="3" opacity="0.9"/>
+      <path d="M360 192 L430 150 L425 260" stroke="#38d8fc" stroke-width="3" opacity="0.9"/>
     </g>
-    <g stroke="#3ee0ff" stroke-width="2.6" stroke-linecap="round" opacity="0.9">
-      <path d="M272 214 L316 176"/>
-      <path d="M316 176 L364 180"/>
-      <path d="M364 180 L456 200"/>
-      <path d="M456 200 L514 280"/>
-      <path d="M456 200 L605 163"/>
-      <path d="M605 163 L645 212"/>
-      <path d="M605 163 L721 196"/>
-      <path d="M514 280 L570 258"/>
-      <path d="M570 258 L645 212"/>
-      <path d="M416 232 L456 200"/>
+
+    <g>
+      <path d="M318 257 C358 175, 437 161, 490 224 C524 260, 558 266, 596 238 C636 208, 690 214, 718 244 C671 209, 638 196, 603 201 C556 208, 514 228, 480 252 C432 286, 390 295, 340 281 C327 277, 325 271, 318 257 Z" fill="none" stroke="url(#loop)" stroke-width="26"/>
+      <path d="M336 259 C388 290, 432 295, 480 252 C514 228, 556 208, 603 201 C638 196, 671 209, 718 244 C690 214, 636 208, 596 238 C558 266, 524 260, 490 224 C437 161, 358 175, 318 257 Z" fill="none" stroke="url(#loopDark)" stroke-width="26" opacity="0.7"/>
+
+      <path d="M598 230 L694 230" stroke="url(#loop)" stroke-width="18" stroke-linecap="round"/>
+      <path d="M604 286 L678 214" stroke="url(#loop)" stroke-width="18" stroke-linecap="round"/>
+      <path d="M584 270 L622 222" stroke="url(#loop)" stroke-width="18" stroke-linecap="round"/>
+
+      <path d="M375 230 L323 198" stroke="url(#loopDark)" stroke-width="20" stroke-linecap="round"/>
+      <path d="M318 198 L274 242" stroke="url(#loopDark)" stroke-width="20" stroke-linecap="round"/>
+      <path d="M330 180 L369 212" stroke="url(#loop)" stroke-width="18" stroke-linecap="round"/>
+    </g>
+
+    <g>
+      <path d="M497 260 L583 183" stroke="url(#loop)" stroke-width="11" stroke-linecap="round"/>
+      <path d="M383 228 L438 192" stroke="url(#loopDark)" stroke-width="11" stroke-linecap="round"/>
+    </g>
+
+    <g fill="#0edaf5" stroke="#dfffff" stroke-width="2">
+      <circle cx="405" cy="235" r="7"/>
+      <circle cx="487" cy="220" r="7"/>
+      <circle cx="556" cy="200" r="8"/>
+      <circle cx="595" cy="236" r="7"/>
+      <circle cx="640" cy="258" r="7"/>
+      <circle cx="610" cy="317" r="7"/>
+      <circle cx="517" cy="320" r="7"/>
+      <circle cx="429" cy="283" r="7"/>
+      <circle cx="365" cy="241" r="7"/>
+      <circle cx="435" cy="182" r="7"/>
+    </g>
+
+    <g>
+      <path d="M337 222 C361 242, 388 241, 405 235" stroke="#20d9f8" stroke-width="4" fill="none" stroke-linecap="round"/>
+      <path d="M487 220 C512 241, 538 238, 556 200" stroke="#20d9f8" stroke-width="4" fill="none" stroke-linecap="round"/>
+      <path d="M556 200 C577 212, 592 228, 595 236" stroke="#20d9f8" stroke-width="4" fill="none" stroke-linecap="round"/>
+      <path d="M595 236 C609 261, 619 284, 610 317" stroke="#20d9f8" stroke-width="4" fill="none" stroke-linecap="round"/>
+      <path d="M610 317 C586 327, 545 326, 517 320" stroke="#20d9f8" stroke-width="4" fill="none" stroke-linecap="round"/>
+      <path d="M517 320 C469 324, 440 307, 429 283" stroke="#20d9f8" stroke-width="4" fill="none" stroke-linecap="round"/>
+      <path d="M429 283 C401 264, 382 247, 365 241" stroke="#20d9f8" stroke-width="4" fill="none" stroke-linecap="round"/>
+      <path d="M365 241 C353 235, 343 228, 337 222" stroke="#20d9f8" stroke-width="4" fill="none" stroke-linecap="round"/>
     </g>
   </g>
 
-  <g transform="translate(0,0)">
-    <text x="150" y="430" fill="url(#textGrad)" font-family="Segoe UI, Arial, sans-serif" font-size="176" font-weight="700" letter-spacing="-6">Elite</text>
-    <text x="570" y="430" fill="url(#textGrad)" font-family="Segoe UI, Arial, sans-serif" font-size="176" font-weight="700" letter-spacing="-6">Suraksha</text>
-    <text x="1080" y="360" fill="#0d79b2" font-family="Segoe UI, Arial, sans-serif" font-size="82" font-weight="700">2.0</text>
+  <g>
+    <text x="125" y="430" fill="url(#textGrad)" font-family="Segoe UI, Arial, sans-serif" font-size="175" font-weight="700" letter-spacing="-8">Elite</text>
+    <text x="560" y="430" fill="url(#textGrad)" font-family="Segoe UI, Arial, sans-serif" font-size="175" font-weight="700" letter-spacing="-8">Suraksha</text>
+    <text x="1188" y="355" fill="#0b72b0" font-family="Segoe UI, Arial, sans-serif" font-size="80" font-weight="700">2.0</text>
   </g>
 </svg>
