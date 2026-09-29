@@ -54,16 +54,15 @@ const Layout = () => {
 
   const isDemoUser = user?.role === 'ADMIN' || profile?.isSynthetic;
   const adminHome = user?.role === 'ADMIN' && !scope.isAdminView;
-  const nav = [...(adminHome ? [] : WORKER_NAV), ...(isDemoUser ? [{ group: 'Demo', items: [{ to: '/demo', label: 'Judge Demo', icon: 'play' }, { to: '/architecture', label: 'How it works', icon: 'layers' }] }] : [{ group: 'About', items: [{ to: '/architecture', label: 'How it works', icon: 'layers' }] }])];
+  const nav = [...(adminHome ? [] : WORKER_NAV), ...(isDemoUser ? [{ group: 'Demo', items: [{ to: '/demo', label: 'Judge Demo', icon: 'play' }, { to: '/architecture', label: 'How it works', icon: 'spark' }] }] : [])];
   const links = nav.flatMap((g) => g.items);
 
   return (
     <WorkerCtx.Provider value={{ profile, reload, system }}>
       <div className="app">
         <aside className="sidebar" aria-label="Main navigation">
-          <div className="brand">
-            <img src="/shield.svg" width="32" height="32" alt="" />
-            <div><b>EliteSuraksha 2.0</b><small>Earnings intelligence · agent memory</small></div>
+          <div className="brand" style={{ padding: '8px 0' }}>
+            <img src="/elitesuraksha-logo.svg" width="220" alt="EliteSuraksha 2.0" style={{ display: 'block', maxWidth: '100%', height: 'auto' }} />
           </div>
           {user?.role === 'ADMIN' ? (
             <nav className="nav"><NavLink to="/admin" end><Icon name="shield" />Investigation Console</NavLink></nav>

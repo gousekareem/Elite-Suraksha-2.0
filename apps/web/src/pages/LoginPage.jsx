@@ -31,13 +31,15 @@ const LoginPage = () => {
     <div style={{ minHeight: '100vh', display: 'grid', gridTemplateColumns: 'minmax(0,1.2fr) minmax(0,1fr)', background: 'var(--bg)' }} className="login-grid">
       <style>{'@media (max-width:860px){.login-grid{grid-template-columns:1fr!important}}'}</style>
       <section style={{ padding: '48px clamp(16px,5vw,64px)', background: 'var(--brand)', color: '#fff', display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: 22 }}>
-        <div className="row" style={{ gap: 10 }}><img src="/shield.svg" width="36" height="36" alt="" style={{ background: '#fff', borderRadius: 8, padding: 3 }} /><b style={{ fontSize: 18 }}>EliteSuraksha 2.0</b></div>
-        <h1 style={{ fontSize: 'clamp(26px,3.4vw,38px)', lineHeight: 1.15, letterSpacing: '-.5px', maxWidth: 620 }}>An AI agent that remembers a gig worker’s history — and uses it to investigate new earnings problems.</h1>
-        <p style={{ opacity: 0.9, fontSize: 16, maxWidth: 560 }}>Your work history should not disappear every time you start a new conversation. EliteSuraksha investigates today’s problem using yesterday’s experience, with persistent memory powered by Hindsight.</p>
+        <div style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center' }}>
+          <img src="/elitesuraksha-logo.svg" alt="EliteSuraksha 2.0" style={{ width: '100%', maxWidth: 520, height: 'auto', display: 'block' }} />
+        </div>
+        <h1 style={{ fontSize: 'clamp(26px,3.4vw,38px)', lineHeight: 1.15, letterSpacing: '-.5px', maxWidth: 620 }}>An AI agent that remembers a gig worker’s history — and uses it to investigate today’s earnings anomaly.</h1>
+        <p style={{ opacity: 0.9, fontSize: 16, maxWidth: 560 }}>Your work history should not disappear every time you start a new conversation. EliteSuraksha investigates today’s problem using yesterday’s experience.</p>
         <ol style={{ listStyle: 'none', display: 'grid', gap: 10, maxWidth: 560 }}>
           {STEPS.map(([t, d], i) => (
             <li key={t} className="row" style={{ alignItems: 'flex-start', gap: 12 }}>
-              <span style={{ width: 26, height: 26, borderRadius: 8, background: i === 1 || i === 3 ? '#b9a6ff' : 'rgba(255,255,255,.18)', color: i === 1 || i === 3 ? '#231a55' : '#fff', display: 'grid', placeItems: 'center', fontWeight: 800, flex: 'none' }}>{i + 1}</span>
+              <span style={{ width: 26, height: 26, borderRadius: 8, background: i === 1 || i === 3 ? '#b9a6ff' : 'rgba(255,255,255,.18)', color: i === 1 || i === 3 ? '#231a55' : '#fff', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700 }}>{i + 1}</span>
               <div><b>{t}</b><div style={{ opacity: 0.85, fontSize: 13 }}>{d}</div></div>
             </li>
           ))}
@@ -56,12 +58,12 @@ const LoginPage = () => {
         <div className="card" style={{ padding: 22 }}>
           <div className="eyebrow">Sign in with mobile number</div>
           <div className="stack mt">
-            <label className="field">Mobile number<input className="input" inputMode="numeric" maxLength={10} placeholder="10-digit mobile number" value={phone} onChange={(e) => setPhone(e.target.value.replace(/\D/g, ''))} /></label>
-            {stage === 'otp' ? <label className="field">One-time password<input className="input" inputMode="numeric" maxLength={6} value={otp} onChange={(e) => setOtp(e.target.value.replace(/\D/g, ''))} /></label> : null}
+            <label className="field">Mobile number<input className="input" inputMode="numeric" maxLength={10} placeholder="10-digit mobile number" value={phone} onChange={(e) => setPhone(e.target.value.replace(/\D/g, '').slice(0, 10))} /></label>
+            {stage === 'otp' ? <label className="field">One-time password<input className="input" inputMode="numeric" maxLength={6} value={otp} onChange={(e) => setOtp(e.target.value.replace(/\D/g, '').slice(0, 6))} /></label> : null}
             {devOtp ? <div className="alert info small">Development OTP: <b className="mono">{devOtp}</b></div> : null}
             {stage === 'phone'
               ? <button className="btn" onClick={() => run('otp', async () => { const r = await sendOtp(phone); setDevOtp(r.devOtp || ''); setStage('otp'); })} disabled={!!busy || phone.length !== 10}>{busy === 'otp' ? 'Sending…' : 'Send OTP'}</button>
-              : <button className="btn primary" onClick={() => run('verify', async () => go(await verifyOtp(phone, otp)))} disabled={!!busy || otp.length !== 6}>{busy === 'verify' ? 'Verifying…' : 'Verify & continue'}</button>}
+              : <button className="btn primary" onClick={() => run('verify', async () => go(await verifyOtp(phone, otp)))} disabled={!!busy || otp.length !== 6}>{busy === 'verify' ? 'Verifying…' : 'Verify OTP'}</button>}
           </div>
         </div>
         {error ? <div className="alert err" role="alert">{error}</div> : null}
