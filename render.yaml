@@ -1,0 +1,30 @@
+services:
+  - type: web
+    name: elite-suraksha-api
+    runtime: node
+    rootDir: .
+    plan: starter
+    buildCommand: npm install && npm run db:generate --workspace apps/api
+    preDeployCommand: npm run db:migrate --workspace apps/api
+    startCommand: npm run start --workspace apps/api
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 4000
+      - key: CORS_ORIGIN
+        value: https://your-web-domain.com
+      - key: DATABASE_URL
+        sync: false
+      - key: JWT_ACCESS_SECRET
+        sync: false
+      - key: JWT_REFRESH_SECRET
+        sync: false
+      - key: HINDSIGHT_URL
+        sync: false
+      - key: HINDSIGHT_API_KEY
+        sync: false
+      - key: DEMO_MODE_ENABLED
+        value: "false"
+      - key: EXPOSE_DEV_OTP
+        value: "false"
