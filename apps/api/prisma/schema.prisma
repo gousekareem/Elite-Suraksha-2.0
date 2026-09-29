@@ -1,0 +1,469 @@
+// EliteSuraksha 2.0 — structured source of truth.
+//
+// PostgreSQL holds the facts (sessions, trips, earnings, platform events,
+// investigations, outcomes, audit). Hindsight holds the agent's experiential
+// memory (patterns, previous cases, outcomes, learnings). See docs/HINDSIGHT.md.
+//
+// engineType = "client" uses Prisma's Rust-free query compiler with the pg
+// driver adapter (see src/lib/prisma.js), so no native query engine is needed.
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["queryCompiler", "driverAdapters"]
+  engineType      = "client"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ─── Identity & access ────────────────────────────────────────────────────────
+
+enum UserRole {
+  WORKER
+  ADMIN
+}
+
+enum UserStatus {
+  ACTIVE
+  INACTIVE
+  SUSPENDED
+  PENDING_VERIFICATION
+}
+
+model User {
+  id        String     @id @default(cuid())
+  phone     String     @unique
+  email     String?    @unique
+  role      UserRole   @default(WORKER)
+  status    UserStatus @default(PENDING_VERIFICATION)
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+
+  workerProfile WorkerProfile?
+  otpRequests   OtpRequest[]
+
+  @@map("users")
+}
+
+model OtpRequest {
+  id         String    @id @default(cuid())
+  userId     String?
+  phone      String
+  otpHash    String
+  expiresAt  DateTime
+  attempts   Int       @default(0)
+  verifiedAt DateTime?
+  createdAt  DateTime  @default(now())
+
+  user User? @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@map("otp_requests")
+}
+
+// ─── Worker ───────────────────────────────────────────────────────────────────
+
+model WorkerProfile {
+  id           String    @id @default(cuid())
+  userId       String    @unique
+  fullName     String
+  city         String
+  zone         String
+  platformCode String // PlatformAdapter key, e.g. GENERIC_DELIVERY
+  platformName String
+  preferences  Json?
+  isSynthetic  Boolean   @default(false)
+  // Demo clock: when set, analytics treat this date as "today" for the worker.
+  asOfDate     String?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  user           User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  sessions       WorkSession[]
+  trips          TripRecord[]
+  earnings       EarningsRecord[]
+  platformEvents PlatformEvent[]
+  baselines      WorkerBaseline[]
+  anomalies      Anomaly[]
+  investigations Investigation[]
+  interactions   AgentInteraction[]
+  memoryEvents   MemoryEvent[]
+
+  @@map("worker_profiles")
+}
+
+// ─── Work & earnings records ──────────────────────────────────────────────────
+
+enum TripStatus {
+  COMPLETED
+  CANCELLED
+}
+
+model WorkSession {
+  id              String   @id @default(cuid())
+  workerId        String
+  externalRef     String
+  localDate       String // YYYY-MM-DD in the worker's local time (Asia/Kolkata)
+  dayOfWeek       Int // 0 = Sunday … 6 = Saturday
+  startHour       Int
+  endHour         Int
+  startedAt       DateTime
+  endedAt         DateTime
+  zone            String
+  platformCode    String
+  activeMinutes   Int
+  idleMinutes     Int
+  ordersOffered   Int
+  ordersAccepted  Int
+  ordersCompleted Int
+  ordersCancelled Int
+  distanceKm      Decimal  @db.Decimal(8, 2)
+  acceptanceRate  Decimal  @db.Decimal(5, 2)
+  rating          Decimal? @db.Decimal(3, 2)
+  zoneBreakdown   Json?
+  createdAt       DateTime @default(now())
+
+  worker   WorkerProfile   @relation(fields: [workerId], references: [id], onDelete: Cascade)
+  trips    TripRecord[]
+  earnings EarningsRecord?
+  anomaly  Anomaly?
+
+  @@unique([workerId, externalRef])
+  @@index([workerId, localDate])
+  @@map("work_sessions")
+}
+
+model TripRecord {
+  id          String     @id @default(cuid())
+  workerId    String
+  sessionId   String
+  completedAt DateTime
+  zone        String
+  distanceKm  Decimal    @db.Decimal(6, 2)
+  basePay     Decimal    @db.Decimal(10, 2)
+  status      TripStatus
+
+  worker  WorkerProfile @relation(fields: [workerId], references: [id], onDelete: Cascade)
+  session WorkSession   @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+
+  @@index([sessionId])
+  @@map("trip_records")
+}
+
+model EarningsRecord {
+  id                 String   @id @default(cuid())
+  workerId           String
+  sessionId          String   @unique
+  basePay            Decimal  @db.Decimal(10, 2)
+  tips               Decimal  @default(0) @db.Decimal(10, 2)
+  incentiveProgram   String?
+  incentiveEligible  Boolean?
+  incentiveAmount    Decimal  @default(0) @db.Decimal(10, 2)
+  incentiveNote      String?
+  deductionAmount    Decimal  @default(0) @db.Decimal(10, 2)
+  deductionBreakdown Json?
+  grossEarnings      Decimal  @db.Decimal(10, 2)
+  netEarnings        Decimal  @db.Decimal(10, 2)
+  currency           String   @default("INR")
+  createdAt          DateTime @default(now())
+
+  worker  WorkerProfile @relation(fields: [workerId], references: [id], onDelete: Cascade)
+  session WorkSession   @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+
+  @@index([workerId])
+  @@map("earnings_records")
+}
+
+enum PlatformEventType {
+  INCENTIVE_TERMS_CHANGE
+  PAY_RATE_CHANGE
+  DEDUCTION_POLICY_CHANGE
+  ZONE_CHANGE
+  APP_OUTAGE
+  ACCOUNT_NOTICE
+  OTHER
+}
+
+model PlatformEvent {
+  id           String            @id @default(cuid())
+  workerId     String?
+  platformCode String
+  zone         String?
+  occurredAt   DateTime
+  localDate    String
+  type         PlatformEventType
+  title        String
+  description  String
+  source       String
+  externalRef  String?
+  isSynthetic  Boolean           @default(false)
+  createdAt    DateTime          @default(now())
+
+  worker WorkerProfile? @relation(fields: [workerId], references: [id], onDelete: Cascade)
+
+  @@index([workerId, localDate])
+  @@index([platformCode, localDate])
+  @@map("platform_events")
+}
+
+model WorkerBaseline {
+  id          String   @id @default(cuid())
+  workerId    String
+  segmentKey  String
+  windowStart String
+  windowEnd   String
+  sampleSize  Int
+  metrics     Json
+  computedAt  DateTime @default(now())
+
+  worker WorkerProfile @relation(fields: [workerId], references: [id], onDelete: Cascade)
+
+  @@unique([workerId, segmentKey, windowEnd])
+  @@map("worker_baselines")
+}
+
+// ─── Anomalies & investigations ───────────────────────────────────────────────
+
+enum AnomalySeverity {
+  NORMAL
+  WATCH
+  SIGNIFICANT_CHANGE
+  INVESTIGATION_RECOMMENDED
+}
+
+model Anomaly {
+  id             String          @id @default(cuid())
+  workerId       String
+  sessionId      String          @unique
+  detectedAt     DateTime        @default(now())
+  localDate      String
+  segmentKey     String
+  metric         String
+  baselineValue  Decimal         @db.Decimal(10, 2)
+  observedValue  Decimal         @db.Decimal(10, 2)
+  deviationPct   Decimal         @db.Decimal(6, 2)
+  severity       AnomalySeverity
+  signals        Json
+  explanation    String
+  memoryRetained Boolean         @default(false)
+
+  worker         WorkerProfile   @relation(fields: [workerId], references: [id], onDelete: Cascade)
+  session        WorkSession     @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  investigations Investigation[]
+
+  @@index([workerId, localDate])
+  @@map("anomalies")
+}
+
+enum InvestigationStatus {
+  OPEN
+  IN_PROGRESS
+  AWAITING_CLARIFICATION
+  RESOLVED
+  CLOSED
+}
+
+model Investigation {
+  id              String              @id @default(cuid())
+  caseNumber      String              @unique
+  workerId        String
+  anomalyId       String?
+  status          InvestigationStatus @default(OPEN)
+  title           String
+  question        String
+  periodStart     String
+  periodEnd       String
+  summary         String?
+  analysis        Json?
+  memoryContext   Json?
+  createdByUserId String?
+  createdAt       DateTime            @default(now())
+  updatedAt       DateTime            @updatedAt
+  resolvedAt      DateTime?
+
+  worker   WorkerProfile          @relation(fields: [workerId], references: [id], onDelete: Cascade)
+  anomaly  Anomaly?               @relation(fields: [anomalyId], references: [id], onDelete: SetNull)
+  evidence EvidenceItem[]
+  findings InvestigationFinding[]
+  reports  GrievanceReport[]
+  outcome  InvestigationOutcome?
+
+  @@index([workerId, createdAt])
+  @@map("investigations")
+}
+
+enum EvidenceType {
+  EARNINGS_RECORD
+  BASELINE
+  COMPARABLE_SESSIONS
+  PLATFORM_EVENT
+  HINDSIGHT_MEMORY
+  PREVIOUS_INVESTIGATION
+  WORKER_STATEMENT
+  ATTACHMENT
+}
+
+model EvidenceItem {
+  id              String       @id @default(cuid())
+  investigationId String
+  type            EvidenceType
+  source          String
+  occurredAt      DateTime?
+  localDate       String?
+  title           String
+  content         Json
+  relevance       String
+  refId           String?
+  fileUrl         String?
+  createdAt       DateTime     @default(now())
+
+  investigation Investigation @relation(fields: [investigationId], references: [id], onDelete: Cascade)
+
+  @@unique([investigationId, type, refId])
+  @@map("evidence_items")
+}
+
+enum FindingKind {
+  FACT
+  INFERENCE
+  UNKNOWN
+}
+
+model InvestigationFinding {
+  id              String      @id @default(cuid())
+  investigationId String
+  kind            FindingKind
+  statement       String
+  evidenceIds     String[]
+  confidence      String?
+  position        Int         @default(0)
+  createdAt       DateTime    @default(now())
+
+  investigation Investigation @relation(fields: [investigationId], references: [id], onDelete: Cascade)
+
+  @@index([investigationId])
+  @@map("investigation_findings")
+}
+
+enum ReportStatus {
+  DRAFT
+  FINAL
+}
+
+model GrievanceReport {
+  id              String       @id @default(cuid())
+  investigationId String
+  version         Int
+  status          ReportStatus @default(DRAFT)
+  requestedAction String
+  content         Json
+  markdown        String
+  generatedAt     DateTime     @default(now())
+
+  investigation Investigation @relation(fields: [investigationId], references: [id], onDelete: Cascade)
+
+  @@unique([investigationId, version])
+  @@map("grievance_reports")
+}
+
+model InvestigationOutcome {
+  id                String    @id @default(cuid())
+  investigationId   String    @unique
+  result            String
+  rootCauseCategory String
+  actionTaken       String
+  resolutionSource  String
+  workerFeedback    String?
+  learning          String?
+  resolvedAt        DateTime
+  memoryDocumentId  String?
+  memoryRetainedAt  DateTime?
+  createdAt         DateTime  @default(now())
+
+  investigation Investigation @relation(fields: [investigationId], references: [id], onDelete: Cascade)
+
+  @@map("investigation_outcomes")
+}
+
+// ─── Agent & memory audit ─────────────────────────────────────────────────────
+
+model AgentInteraction {
+  id              String   @id @default(cuid())
+  workerId        String
+  userId          String?
+  question        String
+  mode            String
+  intent          String
+  response        Json
+  toolsUsed       Json
+  memoryRecalled  Json
+  memoryStatus    String
+  reasoningEngine String
+  createdAt       DateTime @default(now())
+
+  worker WorkerProfile @relation(fields: [workerId], references: [id], onDelete: Cascade)
+
+  @@index([workerId, createdAt])
+  @@map("agent_interactions")
+}
+
+enum MemoryOperation {
+  RETAIN
+  RECALL
+  DELETE_BANK
+}
+
+enum MemoryEventStatus {
+  OK
+  EMPTY
+  DUPLICATE_SKIPPED
+  UNAVAILABLE
+  FAILED
+  DISABLED
+}
+
+// Audit trail of every Hindsight operation the application performed.
+// Memory *content* lives in Hindsight; this table records why and when the
+// application retained or recalled, so the Memory Inspector can explain it.
+model MemoryEvent {
+  id              String            @id @default(cuid())
+  workerId        String
+  bankId          String
+  operation       MemoryOperation
+  status          MemoryEventStatus
+  category        String?
+  documentId      String?
+  query           String?
+  contentHash     String?
+  contentPreview  String?
+  localDate       String?
+  reason          String
+  resultCount     Int?
+  results         Json?
+  investigationId String?
+  interactionId   String?
+  error           String?
+  latencyMs       Int?
+  createdAt       DateTime          @default(now())
+
+  worker WorkerProfile @relation(fields: [workerId], references: [id], onDelete: Cascade)
+
+  @@index([workerId, createdAt])
+  @@index([workerId, documentId])
+  @@map("memory_events")
+}
+
+model AuditLog {
+  id          String   @id @default(cuid())
+  actorUserId String?
+  workerId    String?
+  action      String
+  entityType  String
+  entityId    String?
+  details     Json?
+  createdAt   DateTime @default(now())
+
+  @@index([workerId, createdAt])
+  @@map("audit_logs")
+}

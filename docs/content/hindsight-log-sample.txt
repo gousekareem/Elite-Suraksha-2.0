@@ -1,0 +1,85 @@
+# Captured from the API log during one UI-driven Judge Demo run (e2e/judge-demo.e2e.js)
+# against a real Hindsight 0.10.1 server. Worker ids are database ids of the synthetic demo workers.
+# Environment note: this capture used Hindsight's built-in 'mock' LLM provider and a local embedding
+# server because the capture sandbox had no internet access; see docs/HINDSIGHT.md.
+
+[API] EliteSuraksha 2.0 API running on http://localhost:4000
+[HINDSIGHT] connected to http://localhost:8888 (API 0.10.1)
+[AGENT] LLM not configured — deterministic reasoning engine in use
+[HINDSIGHT] DELETE_BANK worker=cmum58i7b00s8zn7d73oi058i reason="Demo reset" status=OK
+[HINDSIGHT] DELETE_BANK worker=cmum58i7d00s9zn7d834vciev reason="Demo reset" status=OK
+[HINDSIGHT] RETAIN worker=cmum59ssl0009sx7dh37uk759 category=worker_pattern doc=pattern:schedule items=1 65ms
+[HINDSIGHT] RETAIN worker=cmum59ssl0009sx7dh37uk759 category=earnings_pattern doc=pattern:earnings:MON|11-15|Zone C items=1 97ms
+[HINDSIGHT] RETAIN worker=cmum59ssl0009sx7dh37uk759 category=earnings_pattern doc=pattern:earnings:TUE|11-15|Zone C items=1 129ms
+[HINDSIGHT] RETAIN worker=cmum59ssl0009sx7dh37uk759 category=worker_preference doc=preference:explanations items=1 163ms
+[LEARN] patterns learned worker=cmum59ssl0009sx7dh37uk759 asOf=2026-08-14 memories=4
+[HINDSIGHT] RETAIN worker=cmum59ssj0008sx7dxsudhxx3 category=platform_context doc=platform-event:cmum59ts100qgsx7dqse3smvc items=1 44ms
+[HINDSIGHT] RETAIN worker=cmum59ssj0008sx7dxsudhxx3 category=earnings_pattern doc=pattern:earnings:THU|19-23|Zone A items=1 30ms
+[HINDSIGHT] RETAIN worker=cmum59ssj0008sx7dxsudhxx3 category=earnings_pattern doc=pattern:earnings:SAT|18-23|Zone A items=1 58ms
+[HINDSIGHT] RETAIN worker=cmum59ssj0008sx7dxsudhxx3 category=earnings_pattern doc=pattern:earnings:WED|19-23|Zone A items=1 85ms
+[HINDSIGHT] RETAIN worker=cmum59ssj0008sx7dxsudhxx3 category=earnings_pattern doc=pattern:earnings:FRI|18-23|Zone A items=1 121ms
+[HINDSIGHT] RETAIN worker=cmum59ssj0008sx7dxsudhxx3 category=worker_preference doc=preference:explanations items=1 159ms
+[HINDSIGHT] RETAIN worker=cmum59ssj0008sx7dxsudhxx3 category=worker_pattern doc=pattern:schedule items=1 228ms
+[HINDSIGHT] RETAIN worker=cmum59ssj0008sx7dxsudhxx3 category=earnings_pattern doc=pattern:earnings:SUN|12-16|Zone A items=1 272ms
+[LEARN] patterns learned worker=cmum59ssj0008sx7dxsudhxx3 asOf=2026-06-18 memories=7
+[HINDSIGHT] RECALL worker=cmum59ssj0008sx7dxsudhxx3 query="What do I normally earn on Friday evenings?" results=7 81ms
+[HINDSIGHT] RETAIN worker=cmum59ssj0008sx7dxsudhxx3 category=historical_anomaly doc=anomaly:cmum59w8h00risx7d9de629zy items=1 35ms
+[HINDSIGHT] RECALL worker=cmum59ssj0008sx7dxsudhxx3 query="Why did my earnings drop?" results=6 37ms
+[HINDSIGHT] RECALL worker=cmum59ssj0008sx7dxsudhxx3 query="Earnings decline of 24.4% on a Friday evening shift, with normal order volume, …" categories=historical_anomaly,investigation_finding,investigation_outcome,user_feedback,platform_context results=2 74ms
+[HINDSIGHT] RECALL worker=cmum59ssj0008sx7dxsudhxx3 query="Why were my earnings lower on Fri 19 Jun 2026?" results=9 60ms
+[HINDSIGHT] RECALL worker=cmum59ssj0008sx7dxsudhxx3 query="Earnings decline of 24.4% on a Friday evening shift, with normal order volume, …" categories=historical_anomaly,investigation_finding,investigation_outcome,user_feedback,platform_context results=2 62ms
+[HINDSIGHT] RETAIN worker=cmum59ssj0008sx7dxsudhxx3 category=investigation_finding doc=finding:cmum59xbw00rqsx7dvmemm0yr items=1 34ms
+[HINDSIGHT] RETAIN worker=cmum59ssj0008sx7dxsudhxx3 category=investigation_outcome doc=outcome:cmum59xbw00rqsx7dvmemm0yr items=1 45ms
+[HINDSIGHT] RETAIN worker=cmum59ssj0008sx7dxsudhxx3 category=user_feedback doc=feedback:cmum59xbw00rqsx7dvmemm0yr items=1 47ms
+[HINDSIGHT] RETAIN worker=cmum59ssj0008sx7dxsudhxx3 category=historical_anomaly doc=anomaly:cmum5a0w001ezsx7dyodhhidl items=1 34ms
+[HINDSIGHT] RETAIN worker=cmum59ssj0008sx7dxsudhxx3 category=historical_anomaly doc=anomaly:cmum5a0xr01f4sx7dmlxceon9 items=1 31ms
+[HINDSIGHT] RETAIN worker=cmum59ssj0008sx7dxsudhxx3 category=platform_context doc=platform-event:cmum5a0z201f8sx7d201gswbi items=1 32ms
+[HINDSIGHT] RETAIN worker=cmum59ssj0008sx7dxsudhxx3 category=worker_preference doc=preference:explanations (duplicate skipped)
+[HINDSIGHT] RETAIN worker=cmum59ssj0008sx7dxsudhxx3 category=worker_pattern doc=pattern:schedule items=1 64ms
+[HINDSIGHT] RETAIN worker=cmum59ssj0008sx7dxsudhxx3 category=earnings_pattern doc=pattern:earnings:FRI|18-23|Zone A items=1 125ms
+[HINDSIGHT] RETAIN worker=cmum59ssj0008sx7dxsudhxx3 category=earnings_pattern doc=pattern:earnings:SAT|18-23|Zone A items=1 181ms
+[HINDSIGHT] RETAIN worker=cmum59ssj0008sx7dxsudhxx3 category=earnings_pattern doc=pattern:earnings:WED|19-23|Zone A items=1 238ms
+[HINDSIGHT] RETAIN worker=cmum59ssj0008sx7dxsudhxx3 category=earnings_pattern doc=pattern:earnings:SUN|12-16|Zone A items=1 295ms
+[HINDSIGHT] RETAIN worker=cmum59ssj0008sx7dxsudhxx3 category=earnings_pattern doc=pattern:earnings:THU|19-23|Zone A items=1 349ms
+[LEARN] patterns learned worker=cmum59ssj0008sx7dxsudhxx3 asOf=2026-08-14 memories=7
+[HINDSIGHT] RECALL worker=cmum59ssj0008sx7dxsudhxx3 query="Why did my earnings drop again?" results=10 138ms
+[HINDSIGHT] RECALL worker=cmum59ssj0008sx7dxsudhxx3 query="Earnings decline of 22.8% on a Friday evening shift, with normal order volume, …" categories=historical_anomaly,investigation_finding,investigation_outcome,user_feedback,platform_context results=6 780ms
+[HINDSIGHT] RECALL worker=cmum59ssj0008sx7dxsudhxx3 query="Why did my earnings drop again?" results=9 35ms
+[HINDSIGHT] RECALL worker=cmum59ssj0008sx7dxsudhxx3 query="Earnings decline of 22.8% on a Friday evening shift, with normal order volume, …" categories=historical_anomaly,investigation_finding,investigation_outcome,user_feedback,platform_context results=6 65ms
+[HINDSIGHT] RETAIN worker=cmum5ab4e01fzsx7dd9igmg4y category=worker_pattern doc=pattern:schedule items=1 47ms
+[HINDSIGHT] RETAIN worker=cmum5ab4e01fzsx7dd9igmg4y category=earnings_pattern doc=pattern:earnings:MON|11-15|Zone C items=1 79ms
+[HINDSIGHT] RETAIN worker=cmum5ab4e01fzsx7dd9igmg4y category=earnings_pattern doc=pattern:earnings:TUE|11-15|Zone C items=1 109ms
+[HINDSIGHT] RETAIN worker=cmum5ab4e01fzsx7dd9igmg4y category=worker_preference doc=preference:explanations items=1 140ms
+[LEARN] patterns learned worker=cmum5ab4e01fzsx7dd9igmg4y asOf=2026-08-14 memories=4
+[HINDSIGHT] RETAIN worker=cmum5ab4c01fysx7dc7pdp83a category=platform_context doc=platform-event:cmum5abyd0266sx7d11rzqfuz items=1 42ms
+[HINDSIGHT] RETAIN worker=cmum5ab4c01fysx7dc7pdp83a category=worker_pattern doc=pattern:schedule items=1 34ms
+[HINDSIGHT] RETAIN worker=cmum5ab4c01fysx7dc7pdp83a category=earnings_pattern doc=pattern:earnings:SUN|12-16|Zone A items=1 62ms
+[HINDSIGHT] RETAIN worker=cmum5ab4c01fysx7dc7pdp83a category=earnings_pattern doc=pattern:earnings:WED|19-23|Zone A items=1 90ms
+[HINDSIGHT] RETAIN worker=cmum5ab4c01fysx7dc7pdp83a category=earnings_pattern doc=pattern:earnings:FRI|18-23|Zone A items=1 119ms
+[HINDSIGHT] RETAIN worker=cmum5ab4c01fysx7dc7pdp83a category=earnings_pattern doc=pattern:earnings:THU|19-23|Zone A items=1 148ms
+[HINDSIGHT] RETAIN worker=cmum5ab4c01fysx7dc7pdp83a category=earnings_pattern doc=pattern:earnings:SAT|18-23|Zone A items=1 176ms
+[HINDSIGHT] RETAIN worker=cmum5ab4c01fysx7dc7pdp83a category=worker_preference doc=preference:explanations items=1 204ms
+[LEARN] patterns learned worker=cmum5ab4c01fysx7dc7pdp83a asOf=2026-06-18 memories=7
+[HINDSIGHT] RECALL worker=cmum5ab4c01fysx7dc7pdp83a query="What do I normally earn on Friday evenings?" results=7 868ms
+[HINDSIGHT] RETAIN worker=cmum5ab4c01fysx7dc7pdp83a category=historical_anomaly doc=anomaly:cmum5aed60278sx7d7x6rchnz items=1 38ms
+[HINDSIGHT] RECALL worker=cmum5ab4c01fysx7dc7pdp83a query="Why did my earnings drop?" results=6 42ms
+[HINDSIGHT] RECALL worker=cmum5ab4c01fysx7dc7pdp83a query="Earnings decline of 24.4% on a Friday evening shift, with normal order volume, …" categories=historical_anomaly,investigation_finding,investigation_outcome,user_feedback,platform_context results=2 62ms
+[HINDSIGHT] RECALL worker=cmum5ab4c01fysx7dc7pdp83a query="Why were my earnings lower on Fri 19 Jun 2026?" results=9 52ms
+[HINDSIGHT] RECALL worker=cmum5ab4c01fysx7dc7pdp83a query="Earnings decline of 24.4% on a Friday evening shift, with normal order volume, …" categories=historical_anomaly,investigation_finding,investigation_outcome,user_feedback,platform_context results=2 61ms
+[HINDSIGHT] RETAIN worker=cmum5ab4c01fysx7dc7pdp83a category=investigation_finding doc=finding:cmum5afhs027gsx7dqint1mca items=1 31ms
+[HINDSIGHT] RETAIN worker=cmum5ab4c01fysx7dc7pdp83a category=investigation_outcome doc=outcome:cmum5afhs027gsx7dqint1mca items=1 38ms
+[HINDSIGHT] RETAIN worker=cmum5ab4c01fysx7dc7pdp83a category=user_feedback doc=feedback:cmum5afhs027gsx7dqint1mca items=1 30ms
+[HINDSIGHT] RETAIN worker=cmum5ab4c01fysx7dc7pdp83a category=historical_anomaly doc=anomaly:cmum5aizi02upsx7dr1xwta29 items=1 36ms
+[HINDSIGHT] RETAIN worker=cmum5ab4c01fysx7dc7pdp83a category=historical_anomaly doc=anomaly:cmum5aj1702uusx7dczga0dp3 items=1 30ms
+[HINDSIGHT] RETAIN worker=cmum5ab4c01fysx7dc7pdp83a category=platform_context doc=platform-event:cmum5aj2g02uysx7dm6lk1on5 items=1 31ms
+[HINDSIGHT] RETAIN worker=cmum5ab4c01fysx7dc7pdp83a category=worker_preference doc=preference:explanations (duplicate skipped)
+[HINDSIGHT] RETAIN worker=cmum5ab4c01fysx7dc7pdp83a category=worker_pattern doc=pattern:schedule items=1 39ms
+[HINDSIGHT] RETAIN worker=cmum5ab4c01fysx7dc7pdp83a category=earnings_pattern doc=pattern:earnings:FRI|18-23|Zone A items=1 80ms
+[HINDSIGHT] RETAIN worker=cmum5ab4c01fysx7dc7pdp83a category=earnings_pattern doc=pattern:earnings:THU|19-23|Zone A items=1 119ms
+[HINDSIGHT] RETAIN worker=cmum5ab4c01fysx7dc7pdp83a category=earnings_pattern doc=pattern:earnings:SUN|12-16|Zone A items=1 156ms
+[HINDSIGHT] RETAIN worker=cmum5ab4c01fysx7dc7pdp83a category=earnings_pattern doc=pattern:earnings:SAT|18-23|Zone A items=1 190ms
+[HINDSIGHT] RETAIN worker=cmum5ab4c01fysx7dc7pdp83a category=earnings_pattern doc=pattern:earnings:WED|19-23|Zone A items=1 227ms
+[LEARN] patterns learned worker=cmum5ab4c01fysx7dc7pdp83a asOf=2026-08-14 memories=7
+[HINDSIGHT] RECALL worker=cmum5ab4c01fysx7dc7pdp83a query="Why did my earnings drop again?" results=10 889ms
+[HINDSIGHT] RECALL worker=cmum5ab4c01fysx7dc7pdp83a query="Earnings decline of 22.8% on a Friday evening shift, with normal order volume, …" categories=historical_anomaly,investigation_finding,investigation_outcome,user_feedback,platform_context results=6 112ms
+[HINDSIGHT] RETAIN worker=cmum5asdy02vjsx7dw63g23rd category=worker_pattern doc=pattern:schedule items=1 45ms

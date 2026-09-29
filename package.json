@@ -1,0 +1,29 @@
+{
+  "name": "elite-suraksha-monorepo",
+  "private": true,
+  "version": "2.0.0",
+  "description": "EliteSuraksha 2.0 — persistent-memory AI investigation agent for gig-worker earnings (Hindsight + PostgreSQL)",
+  "workspaces": [
+    "apps/web",
+    "apps/api",
+    "apps/mobile",
+    "packages/shared"
+  ],
+  "engines": {
+    "node": ">=20.10"
+  },
+  "scripts": {
+    "dev:web": "npm run dev --workspace apps/web",
+    "dev:api": "npm run dev --workspace apps/api",
+    "dev:mobile": "npm run start --workspace apps/mobile",
+    "db:generate": "npm run db:generate --workspace apps/api",
+    "db:migrate": "npm run db:migrate --workspace apps/api",
+    "db:migrate:offline": "npm run db:migrate:offline --workspace apps/api",
+    "demo:seed": "npm run demo:seed --workspace apps/api",
+    "demo:scenario": "npm run demo:scenario --workspace apps/api",
+    "hindsight:check": "npm run hindsight:check --workspace apps/api",
+    "lint": "npm run lint --workspaces --if-present",
+    "test": "npm run test --workspace apps/api",
+    "build": "npm run build --workspace apps/web"
+  }
+}
