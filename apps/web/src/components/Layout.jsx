@@ -61,8 +61,8 @@ const Layout = () => {
     <WorkerCtx.Provider value={{ profile, reload, system }}>
       <div className="app">
         <aside className="sidebar" aria-label="Main navigation">
-          <div className="brand" style={{ padding: '8px 0' }}>
-            <img src="/elitesuraksha-logo.svg" width="220" alt="EliteSuraksha 2.0" style={{ display: 'block', maxWidth: '100%', height: 'auto' }} />
+          <div className="brand" style={{ padding: '8px 0', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <img src="/Logo (2).png" alt="EliteSuraksha 2.0" style={{ width: '100%', maxWidth: 240, height: 'auto', display: 'block', objectFit: 'contain' }} />
           </div>
           {user?.role === 'ADMIN' ? (
             <nav className="nav"><NavLink to="/admin" end><Icon name="shield" />Investigation Console</NavLink></nav>

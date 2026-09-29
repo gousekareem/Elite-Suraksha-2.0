@@ -31,11 +31,11 @@ const LoginPage = () => {
     <div style={{ minHeight: '100vh', display: 'grid', gridTemplateColumns: 'minmax(0,1.2fr) minmax(0,1fr)', background: 'var(--bg)' }} className="login-grid">
       <style>{'@media (max-width:860px){.login-grid{grid-template-columns:1fr!important}}'}</style>
       <section style={{ padding: '48px clamp(16px,5vw,64px)', background: 'var(--brand)', color: '#fff', display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: 22 }}>
-        <div style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center' }}>
-          <img src="/elitesuraksha-logo.svg" alt="EliteSuraksha 2.0" style={{ width: '100%', maxWidth: 520, height: 'auto', display: 'block' }} />
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: 12 }}>
+          <img src="/Logo (2).png" alt="EliteSuraksha 2.0" style={{ width: '100%', maxWidth: 500, height: 'auto', display: 'block', objectFit: 'contain' }} />
         </div>
-        <h1 style={{ fontSize: 'clamp(26px,3.4vw,38px)', lineHeight: 1.15, letterSpacing: '-.5px', maxWidth: 620 }}>An AI agent that remembers a gig worker’s history — and uses it to investigate today’s earnings anomaly.</h1>
-        <p style={{ opacity: 0.9, fontSize: 16, maxWidth: 560 }}>Your work history should not disappear every time you start a new conversation. EliteSuraksha investigates today’s problem using yesterday’s experience.</p>
+        <h1 style={{ fontSize: 'clamp(26px,3.4vw,38px)', lineHeight: 1.15, letterSpacing: '-.5px', maxWidth: 620 }}>An AI agent that remembers a gig worker's history — and uses it to investigate today's earnings anomaly.</h1>
+        <p style={{ opacity: 0.9, fontSize: 16, maxWidth: 560 }}>Your work history should not disappear every time you start a new conversation. EliteSuraksha investigates today's problem using yesterday's experience.</p>
         <ol style={{ listStyle: 'none', display: 'grid', gap: 10, maxWidth: 560 }}>
           {STEPS.map(([t, d], i) => (
             <li key={t} className="row" style={{ alignItems: 'flex-start', gap: 12 }}>
